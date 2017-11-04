@@ -1,0 +1,92 @@
+{% extends "templates_app/backend/base.html" %}
+{% load staticfiles %}
+
+{% block left_sidebar %}
+  {% include "./sidebar_menu.html" %}
+{% endblock left_sidebar %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title"></h3>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="POST" action="{% url 'jobpost_app:site-settings' %}" enctype="multipart/form-data">
+		    {% csrf_token %}
+          <div class="box-body">
+
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Site Title</label>
+              <div class="col-md-7">
+                <input type="text" name="site_title" value="{{site_sets.title}}" class="form-control" placeholder="Site Title">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Chose Logo</label>
+              <div class="col-md-7">
+                <input type="file" name="image_file">
+                <p class="help-block">
+                  <i>
+                    File must be in JPEG(.jpg or .jpeg) or GIF(.gif) or png format. 
+                    The height and width of the Applicant Photo must be equal(300x300). Max size 100KB
+                  </i>
+                </p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Meta Title</label>
+              <div class="col-md-7">
+                <input type="text" name="meta_title" value="{{site_sets.meta_title}}"  class="form-control" placeholder="Meta Title">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Meta Description</label>
+              <div class="col-md-7">
+                  <textarea rows="2" cols="98" name="meta_desc" class="form-control" placeholder="Meta Description">{{site_sets.meta_description}}</textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Meta Keyword</label>
+              <div class="col-md-7">
+                <input type="text" name="meta_keyword" value="{{site_sets.meta_keyword}}" class="form-control" placeholder="Meta Keyword">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Short Description</label>
+              <div class="col-md-7">
+                  <textarea rows="2" cols="98" name="short_desc" class="form-control" placeholder="Short Description">{{site_sets.short_desc}}</textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Long Description</label>
+              <div class="col-md-7">
+                  <textarea rows="4" cols="98" name="long_desc" class="form-control" placeholder="Long Description">{{site_sets.long_desc}}</textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-md-3 control-label">Copyright</label>
+              <div class="col-md-7">
+                <input type="text" name="copyright" value="{{site_sets.copyrights}}" class="form-control" placeholder="Copyright Description">
+              </div>
+            </div>
+            
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <button type="submit" class="btn btn-default">Back</button>
+            <button type="submit" class="btn btn-info pull-right">Update</button>
+          </div>
+          <!-- /.box-footer -->
+        </form>
+      </div>
+  </div>
+</div>
+{% endblock content %}

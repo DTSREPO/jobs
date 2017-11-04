@@ -1,0 +1,47 @@
+{% extends "templates_app/backend/base.html" %}
+{% load staticfiles %}
+
+{% block left_sidebar %}
+  {% include "./sidebar_menu.html" %}
+{% endblock left_sidebar %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title"><i class="fa fa-bar-chart-o" style="color:blue"></i> {{sub_title}}</h3>
+      </div>
+      <!-- /.box-header -->
+      <div class="box-body">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td>Application through</td>
+              <td align="center"><span class="badge bg-light-blue">0</span></td>
+            </tr>
+            <tr>
+              <td>Viewed applications</td>
+              <td align="center"><span class="badge bg-light-blue">0</span></td>
+            </tr>
+            <tr>
+              <td>Emailed application</td>
+              <td align="center"><span class="badge bg-light-blue">0</span></td>
+            </tr>
+            <tr>
+              <td>Wishlist</td>
+              <td align="center"><span class="badge bg-light-blue">0</span></td>
+            </tr>
+            <tr>
+              <td>Favorite Company</td>
+              <td align="center"><span class="badge bg-light-blue">0</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+  </div>
+</div>
+{% endblock content %}

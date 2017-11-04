@@ -1,0 +1,305 @@
+{% extends "templates_app/backend/base.html" %}
+{% load staticfiles %}
+
+
+{% block left_sidebar %}
+{% include "./sidebar_menu.html" %}
+{% endblock left_sidebar %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{msg}}</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <form class="form-horizontal" method="POST" action="{% url 'employer_app:job-post' jobpost.id %}">
+                {% csrf_token %}
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Company Name</label>
+                        <div class="col-md-7">
+                            <input type="hidden" name="com-id" value="{{emp.id}}" class="form-control">
+                            <input type="text" name="com-name" value="{{emp.company_name}}" class="form-control"
+                                   placeholder="Company Name" READONLY>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Category</label>
+                        <div class="col-md-7">
+                            <select name="category" class="form-control">
+                                <option vlaue="0">--- Select Category ---</option>
+                                {% for category in categories %}
+                                    <option value="{{category.id}}"
+                                            {% if jobpost.category_id == category.id %} selected {% endif %}
+                                    >{{category.name}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Industry Type</label>
+                        <div class="col-md-7">
+                            <select name="industry" class="form-control">
+                                <option vlaue="0">--- Select Industry ---</option>
+                                {% for industry in industries %}
+                                    <option value="{{industry.id}}"
+                                            {% if jobpost.industry_id == industry.id %} selected {% endif %}
+                                    >{{industry.name}}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Job Title</label>
+                        <div class="col-md-7">
+                            <input type="text" name="job-title" value="{{jobpost.job_title}}" class="form-control"
+                                   placeholder="Job Title">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">No. of Vacancies</label>
+                        <div class="col-md-7">
+                            <input type="number" name="vacancies" value="{{jobpost.vacancies}}" class="form-control"
+                                   placeholder="No. of Vacancies">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Applicant should enclose Photo with CV
+                            ?</label>
+                        <div class="col-md-7">
+                            <label class="radio-inline">
+                                <input type="radio" name="attach-photo" value="True" {% if jobpost.with_photo == True %}
+                                       checked {% endif %}> Yes</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="attach-photo" value="False" {% if jobpost.with_photo == False %}
+                                       checked {% endif %}> No</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Apply Instruction(s)</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" cols="98" name="apply-ins" class="form-control"
+                                      placeholder="Apply Instructions">{{jobpost.apply_ins}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Apply Deadline</label>
+                        <div class="col-md-7">
+                            <input type="date" name="deadline" class="form-control" value="{{jobpost.last_date}}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Age Range</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">From</div>
+                                <input type="number" name="age-frm" class="form-control" value="{{jobpost.age_range_form}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">To</div>
+                                <input type="number" name="age-to" class="form-control" value="{{jobpost.age_range_to}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Gender</label>
+                        <div class="col-md-7">
+                            <select name="gender" class="form-control">
+                                <option vlaue="">--- Select One ---</option>
+                                <option value="1" {% if jobpost.gender == 1 %} selected {% endif %}>Male</option>
+                                <option value="2" {% if jobpost.gender == 2 %} selected {% endif %}>Female</option>
+                                <option value="3" {% if jobpost.gender == 3 %} selected {% endif %}>Others</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Job Type</label>
+                        <div class="col-md-7">
+                            <label class="checkbox-inline">
+                                <input name="job-type[]" value="1" type="checkbox"> Full Time
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="job-type[]" value="2" type="checkbox"> Part Time
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="job-type[]" value="3" type="checkbox"> Contractual
+                            </label>
+
+                            <label class="checkbox-inline">
+                                <input name="job-type[]" value="4" type="checkbox"> Internship
+                            </label>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Job Level</label>
+                        <div class="col-md-7">
+                            <label class="checkbox-inline">
+                                <input name="job-level[]" value="1" type="checkbox"> Entry Level
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="job-level[]" value="2" type="checkbox"> Mid Level
+                            </label>
+                            <label class="checkbox-inline">
+                                <input name="job-level[]" value="3" type="checkbox"> Top Level
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Educational Qualification</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" cols="98" name="edu-qlf" class="form-control"
+                                      placeholder="Educational Qualification">{{jobpost.edu_qualification}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Job Context</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" cols="98" name="job-context" class="form-control"
+                                      placeholder="Job Context">{{jobpost.job_context}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Job Description/Responsibility</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" cols="98" name="job-resp" class="form-control"
+                                      placeholder="Job Description/Responsibility">{{jobpost.job_resp}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Additional Job Requirements</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" cols="98" name="adn-req" class="form-control"
+                                      placeholder="Additional Job Requirements">{{jobpost.adtn_job_req}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Experience Type</label>
+                        <div class="col-md-7">
+                            <label class="radio-inline">
+                                <input type="radio" name="exp-type" value="1" {% if jobpost.exp_type == 1 %} checked {% endif %}> Do Not Mention
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="exp-type" value="2" {% if jobpost.exp_type == 2 %} checked {% endif %}> No Experience Required
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="exp-type" value="3" {% if jobpost.exp_type == 3 %} checked {% endif %}> Experience Required
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Total Years of Experience</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">Min</div>
+                                <input type="number" name="min-exp" class="form-control" value="{{jobpost.exp_min}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">Max</div>
+                                <input type="number" name="max-exp" class="form-control" value="{{jobpost.exp_max}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Job Locations</label>
+                        <div class="col-md-7">
+                            <select name="location" class="form-control">
+                                <option vlaue="">--- Select Locations ---</option>
+                                {% for location in locations %}
+                                    <option value="{{location.id}}"
+                                        {% if jobpost.location_id == location.id %} selected {% endif %}
+                                    >{{location.name}}</option>
+                                {% endfor %}
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Salary Range</label>
+                        <div class="col-md-7">
+                            <label class="radio-inline">
+                                <input type="radio" name="sal-range-type" value="1" {% if jobpost.salary_range_type == 1 %} checked {% endif %}>
+                                Don't want to mention
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sal-range-type" value="2" {% if jobpost.salary_range_type == 2 %} checked {% endif %}>
+                                Negotiable
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="sal-range-type" value="3" {% if jobpost.salary_range_type == 3 %} checked {% endif %}>
+                                Want to display the following range
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label"></label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">Min</div>
+                                <input type="number" name="min-sal" class="form-control" value="{{jobpost.salary_min}}">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <div class="input-group-addon">Max</div>
+                                <input type="number" name="max-sal" class="form-control" value="{{jobpost.salary_max}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Other Benefits</label>
+                        <div class="col-md-7">
+                            <textarea rows="4" cols="98" name="other-benifits" class="form-control"
+                                      placeholder="Other Benefits">{{jobpost.other_benefits}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="" class="col-md-3 control-label">Request for 'Exclusive Job'</label>
+                        <div class="col-md-7">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" name="excl-job" value="True" {% if jobpost.excl_job_flag %} checked {% endif %}> Yes
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-default">Back</button>
+                    <button type="submit" class="btn btn-info pull-right">Post a New Job</button>
+                </div>
+                <!-- /.box-footer -->
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

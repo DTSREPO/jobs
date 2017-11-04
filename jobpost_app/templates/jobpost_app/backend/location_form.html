@@ -1,0 +1,64 @@
+{% extends "templates_app/backend/base.html" %}
+{% load staticfiles %}
+
+
+{% block left_sidebar %}
+  {% include "./sidebar_menu.html" %}
+{% endblock left_sidebar %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title"><span>{{msg}}</span></h3>
+		  <span class="pull-right"><a href="{% url 'jobpost_app:loc-form' '' %}" class="btn btn-primary btn-sm" role="button">Add New</a></span>
+        </div>
+        <!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="POST" action="{% url 'jobpost_app:loc-form' loc.id %}">
+		{% csrf_token %}
+          <div class="box-body">
+            <div class="form-group">
+              <label for="" class="col-md-2 control-label">Location Name</label>
+              <div class="col-md-8">
+                <input type="text" name="name" value="{{location.name}}" class="form-control" placeholder="Location Name">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="" class="col-md-2 control-label">Location Slug (Unique)</label>
+              <div class="col-md-8">
+                <input type="text" name="slug" value="{{location.slug}}" class="form-control" placeholder="Location Slug">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="" class="col-md-2 control-label">Description</label>
+              <div class="col-md-8">
+                <input type="text" name="description" value="{{location.description}}"  class="form-control" placeholder="Description">
+              </div>
+            </div>
+
+			<div class="form-group">
+			  <div class="col-sm-offset-2 col-md-8">
+				<div class="checkbox">
+				  <label>
+					<input type="checkbox" name="status" value="True" {% if location.active == True %} checked {% endif %}> Is Active?
+				  </label>
+				</div>
+			  </div>
+			</div>
+            
+          </div>
+          <!-- /.box-body -->
+          <div class="box-footer">
+            <a href="{% url 'jobpost_app:job-loc' %}" class="btn btn-default">Back</a>
+            <button type="submit" class="btn btn-info pull-right">Submit</button>
+          </div>
+          <!-- /.box-footer -->
+        </form>
+      </div>
+  </div>
+</div>
+{% endblock content %}

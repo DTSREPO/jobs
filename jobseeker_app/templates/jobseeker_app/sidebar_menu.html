@@ -1,0 +1,26 @@
+{% load staticfiles %}
+
+{% block left_sidebar %}
+<section class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+
+      <!-- search form (Optional) -->
+
+      <!-- /.search form -->
+
+      <!-- Sidebar Menu -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">Quick Access</li>
+        <!-- Optionally, you can add icons to the links -->
+        <li class="active">
+			     <a href="{% url 'seeker_app:dashboard' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+		    </li>
+        <li><a href="#"><i class="fa fa-file"></i> <span>View Resume</span></a></li>
+        <li><a href="#"><i class="fa fa-edit"></i> <span>Edit Resume</span></a></li>
+        <li><a href="#"><i class="fa fa-upload"></i> <span>Upload Resume</span></a></li>
+        <li><a href="#"><i class="fa fa-envelope"></i> <span>Email Resume</span></a></li>
+        <li><a href="#"><i class="fa fa-file"></i> <span>Match Job</span></a></li>
+      </ul>
+      <!-- /.sidebar-menu -->
+    </section>
+{% endblock left_sidebar %}    

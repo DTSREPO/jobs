@@ -1,0 +1,35 @@
+{% load staticfiles %}
+
+{% block left_sidebar %}
+  <section class="sidebar">
+
+    <!-- Sidebar user panel (optional) -->
+
+    <!-- search form (Optional) -->
+
+    <!-- /.search form -->
+
+    <!-- Sidebar Menu -->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li class="header">Quick Access</li>
+      <!-- Optionally, you can add icons to the links -->
+  		<li class="active">
+  			 <a href="{% url 'jobpost_app:backend_index' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+  		</li>
+  		<li>
+  			 <a href="{% url 'jobpost_app:cat-list' %}"><i class="fa fa-list-alt"></i> <span>Jobs Category</span></a>
+  		</li>
+      <li>
+  	     <a href="{% url 'jobpost_app:ind-list' %}"><i class="fa fa-industry"></i> <span>Jobs Industry</span></a>
+      </li>
+      <li>
+          <a href="{% url 'jobpost_app:job-loc' %}"><i class="fa fa-location-arrow"></i> <span>Locations</span></a>
+      </li>
+      <li>
+          <a href="{% url 'jobpost_app:site-settings' %}"><i class="fa fa-link"></i> <span>Settings</span></a>
+      </li>
+    </ul>
+    <!-- /.sidebar-menu -->
+  </section>
+  <!-- /.sidebar -->
+{% endblock left_sidebar%}
